@@ -110,7 +110,6 @@ public class HibernateUtil_Mysql {
 		        	}
 		    }
 		}
-		System.out.println(y+"lenth is "+u);
 		return files;
 	}
 	
