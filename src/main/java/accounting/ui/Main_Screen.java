@@ -12,6 +12,8 @@ import javax.swing.SpringLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import accounting.enums.constants;
+import accounting.model.dao.StudentDao;
+import accounting.model.entity.student;
 import accounting.ui.jcomponent.Jtree_accounts;
 
 public class Main_Screen extends JFrame implements WindowListener  {
@@ -24,7 +26,12 @@ public class Main_Screen extends JFrame implements WindowListener  {
 	    
 	private Main_Screen(int width, int height) {
 		
-	 
+		StudentDao studentDao = new StudentDao();
+
+        student student = new student("Ramesh", "Fadatare", "ramesh@gmail.com");
+        studentDao.saveStudent(student);
+
+        System.out.println(student.getId());
 		
 		  
         SpringLayout layout = new SpringLayout();  

@@ -1,12 +1,14 @@
 package accounting.Hibernate;
 
+import java.io.IOException;
+
 import org.hibernate.SessionFactory;
 
 import accounting.enums.constants;
 
-public class SessionFactoryAdapter implements SessionFactoryinterface{
+public   class SessionFactoryAdapter implements SessionFactoryinterface{
 
-	public SessionFactory getsSessionFactory(constants database) {
+	public   SessionFactory getsSessionFactory(constants database) throws ClassNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		SessionFactory sessionfacrory = null;
 		
@@ -25,9 +27,10 @@ public class SessionFactoryAdapter implements SessionFactoryinterface{
 			break;
        
 		}
-		if(database.equals(constants.Mysql)) {
+	/*	if(database.equals(constants.Mysql)) {
 			return HibernateUtil_Mysql.getsSessionFactory();
 		}
+		*/
 		
 		return sessionfacrory;
 	}

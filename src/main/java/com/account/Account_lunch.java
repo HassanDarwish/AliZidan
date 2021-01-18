@@ -14,10 +14,16 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 import javax.swing.Timer;
+
+import org.hibernate.HibernateException;
+
+import accounting.Hibernate.SessionFactoryAdapter;
+import accounting.enums.constants;
 import accounting.ui.Main_Screen;
 
 public class Account_lunch  extends JWindow {
@@ -83,18 +89,42 @@ public class Account_lunch  extends JWindow {
         progressBar.setBounds(55, 180, 250, 15);
         container.add(progressBar);
         loadProgressBar();
+
         setSize(380, 220);
         setLocationRelativeTo(null);
         setVisible(true);
+      		// TODO Auto-generated method stub
+				 try {
+					new SessionFactoryAdapter().getsSessionFactory(constants.Mysql).getCurrentSession();
+				} catch (HibernateException e1 ) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					timer1.stop();
+					JOptionPane.showMessageDialog(this,"Can not connect to DataBase.","Error", JOptionPane.ERROR_MESSAGE);  
+					System.exit(0);
+				}catch( ClassNotFoundException e) {
+					timer1.stop();
+					  JOptionPane.showMessageDialog(this,"Can not find Entity in DataBase.","Error", JOptionPane.ERROR_MESSAGE);
+					  System.exit(0);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					timer1.stop();
+					  JOptionPane.showMessageDialog(this,"Can not find Entity in DataBase.","Error", JOptionPane.ERROR_MESSAGE);
+					  System.exit(0);
+					e.printStackTrace();
+				}
+      
     }
 
     public void loadProgressBar() {
+    	
+    	
     	final      ActionListener al = new ActionListener() {
             @SuppressWarnings("deprecation")
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 count++;
                 progressBar.setValue(count);
-                 
+               
                 if (count == 300) {
                     timer1.stop();
                     execute.setVisible(false);
@@ -110,10 +140,12 @@ public class Account_lunch  extends JWindow {
                    
                     return;
                 }
+                
             }
         };
         timer1 = new Timer(50, al);
         timer1.start();
+       
     }
 
     public static void main(final String[] args) {
