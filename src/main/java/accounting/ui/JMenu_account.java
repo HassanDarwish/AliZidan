@@ -17,6 +17,8 @@ import javax.validation.ValidatorFactory;
 
 import com.account.Bill;
 
+import accounting.enums.constants;
+
 public class JMenu_account extends JMenuBar  {
 	
 	
@@ -37,18 +39,26 @@ public class JMenu_account extends JMenuBar  {
 	public static class Builder {
 		JMenu_account current;
 		HashMap<String,ArrayList<String>> MenuAnditems;
+		constants menu_type;
 		
-		
-		public Builder(HashMap<String,ArrayList<String>> MenuAnditems ){
+		public Builder(HashMap<String,ArrayList<String>> MenuAnditems ,constants menU_type){
 			this.MenuAnditems=MenuAnditems;
+			menu_type=menU_type;
 		}
 		
 		public	JMenu_account build() {
+			if(menu_type.equals(constants.Main_Saceen_Menu))
+			 return build_main_screen_menu();
+			
+			
+			return current;
+		}
+		public JMenu_account build_main_screen_menu() {
+				
 			current =new  JMenu_account();
 			
 			for (Entry<String, ArrayList<String>> set : MenuAnditems.entrySet()) {
 				JMenu menu=new JMenu(set.getKey()); 
-				menu.add(new JMenuItem());
 				ArrayList<String> list_item= set.getValue();
 				
 				 for (String temp : list_item) {
@@ -92,7 +102,9 @@ public class JMenu_account extends JMenuBar  {
 		    
 			return current;
 			
+
 		}
+		
 		
 		
 	}

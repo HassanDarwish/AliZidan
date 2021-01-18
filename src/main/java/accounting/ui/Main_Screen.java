@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.SpringLayout;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import accounting.enums.constants;
+import accounting.ui.jcomponent.Jtree_accounts;
 
 public class Main_Screen extends JFrame implements WindowListener  {
 
@@ -14,11 +21,40 @@ public class Main_Screen extends JFrame implements WindowListener  {
 	 */
 	private static final long serialVersionUID = -6239582361955983191L;
 
+	    
 	private Main_Screen(int width, int height) {
 		
 	 
-		 addWindowListener(this);
 		
+		  
+        SpringLayout layout = new SpringLayout();  
+        getContentPane().setLayout(layout);  
+       
+       //JTree  jtree=new Jtree_accounts.Builder().build(constants.jtree_accounts);
+        
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        DefaultMutableTreeNode mercury = new DefaultMutableTreeNode("Mercury");
+        root.insert(mercury, 0);
+        DefaultMutableTreeNode venus = new DefaultMutableTreeNode("Venus");
+        root.insert(venus, 1);
+        DefaultMutableTreeNode mars = new DefaultMutableTreeNode("java2s.com");
+        root.insert(mars, 2);
+        JTree tree = new JTree(root);
+        tree=new Jtree_accounts.Builder().build(constants.jtree_accounts);
+        JScrollPane scrollPane = new JScrollPane(tree);
+        
+         
+        layout.putConstraint(SpringLayout.WEST, scrollPane,6, SpringLayout.WEST, this.getContentPane());
+        layout.putConstraint(SpringLayout.NORTH, scrollPane,6, SpringLayout.NORTH, this.getContentPane());
+        
+        
+        this.getContentPane().add(scrollPane);
+		
+        tree.expandRow(1);
+        tree.scrollRowToVisible(2);
+        tree.revalidate();
+
+        addWindowListener(this);		
 		setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -47,7 +83,7 @@ public class Main_Screen extends JFrame implements WindowListener  {
 			HashMap<String,ArrayList<String>> MenuAnditems=new HashMap<String,ArrayList<String>>();
 			MenuAnditems.put(key, items);
 			
-			JMenu_account menu =new JMenu_account.Builder(MenuAnditems).build();
+			JMenu_account menu =new JMenu_account.Builder(MenuAnditems,constants.Main_Saceen_Menu).build();
 			current.setJMenuBar(menu);
 			
 		}

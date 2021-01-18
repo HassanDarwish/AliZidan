@@ -9,11 +9,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -48,53 +45,22 @@ public class Account_lunch  extends JWindow {
     
 	public Account_lunch() {
 		 Image image = null; InputStream in=null;
-      	//try {
-     
-
-      	//String xc =new File(Account_lunch.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
-      		
-      	  ClassLoader classLoader = getClass().getClassLoader();
-      	  
- 
-      	 
-      	 
-        	try {
+ 	try {
         		 	  in = getClass().getResourceAsStream("/resources/img/logo.jpg");  
-        		
-        	//	URL resource = classLoader.getResource("resources/img/logo.jpg");
-        		
-        
-        		
+         		
+        		 	  	if (in==null)
+        		 	  	 in = getClass().getResourceAsStream("/img/logo.jpg");  
+            			 
+        		 	  		
+        		 	  		
     			 image = ImageIO.read(in);
     		} catch (IllegalArgumentException  | IOException e) {
     			// TODO Auto-generated catch block
     			
-    			  in = getClass().getResourceAsStream("/img/logo.jpg");  
-    			try {
-					image = ImageIO.read(in);
-				} catch (IllegalArgumentException  | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+    			 
     			e.printStackTrace();
     		}  
         	
-        	/*
-      		 URL imageURL =  getClass().getClassLoader().getResource("img"+File.separator+"s-l400.jpg");
-             if(imageURL != null){
-                   image = Toolkit.getDefaultToolkit().getImage(imageURL);
-               } 
-   			 image = ImageIO.read(new File(imageURL.toURI()));
-  		} catch (final IOException e) {
-  			// TODO Auto-generated catch block
- 
-  		 
-  			e.printStackTrace();
-  		} catch (final URISyntaxException e) {
-  			// TODO Auto-generated catch block
-  		 
-  			e.printStackTrace();
-  		}*/
       	final    Container container = getContentPane();
         container.setLayout(null);
 
