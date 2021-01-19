@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
 import org.hibernate.HibernateException;
@@ -88,31 +91,70 @@ public class Account_lunch  extends JWindow {
         progressBar.setStringPainted(true);
         progressBar.setBounds(55, 180, 250, 15);
         container.add(progressBar);
-        loadProgressBar();
+      //  loadProgressBar();
 
+        
+        Thread loadProgressBardb=new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				loadProgressBar();
+			}
+        	
+        });
+Thread db=new Thread(new Runnable() {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		 try {
+			 loadProgressBardb.join();
+			 loadProgressBardb.start();
+				new SessionFactoryAdapter().getsSessionFactory(constants.Mysql).getCurrentSession();
+			
+ 	 }catch (org.hibernate.service.spi.ServiceException eh ) {
+					// TODO Auto-generated catch block
+ 		warnning( ) ;
+		 System.exit(0);
+			} catch (HibernateException e1 ) {
+				// TODO Auto-generated catch block
+				warnning( ) ;
+				 System.exit(0);
+			}catch( ClassNotFoundException e) {
+				warnning( ) ;
+				 System.exit(0);
+			//	  JOptionPane.showMessageDialog(this,"Can not find Entity in DataBase.","Error", JOptionPane.ERROR_MESSAGE);
+				 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				warnning( ) ;
+				 System.exit(0);
+				  
+			}   catch (java.lang.IllegalStateException exception) {
+				warnning() ; System.exit(0);
+				
+			}   catch (RuntimeException exception) {
+	            // Output expected IllegalStateException.
+				 
+				warnning( ) ;
+				 System.exit(0);
+	        } catch (Exception e) {
+				// TODO Auto-generated catch block
+	        	warnning( ) ;
+				 System.exit(0);
+				 
+			} 
+	}
+	
+});
+db.start();
+        
         setSize(380, 220);
         setLocationRelativeTo(null);
         setVisible(true);
       		// TODO Auto-generated method stub
-				 try {
-					new SessionFactoryAdapter().getsSessionFactory(constants.Mysql).getCurrentSession();
-				} catch (HibernateException e1 ) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					timer1.stop();
-					JOptionPane.showMessageDialog(this,"Can not connect to DataBase.","Error", JOptionPane.ERROR_MESSAGE);  
-					System.exit(0);
-				}catch( ClassNotFoundException e) {
-					timer1.stop();
-					  JOptionPane.showMessageDialog(this,"Can not find Entity in DataBase.","Error", JOptionPane.ERROR_MESSAGE);
-					  System.exit(0);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					timer1.stop();
-					  JOptionPane.showMessageDialog(this,"Can not find Entity in DataBase.","Error", JOptionPane.ERROR_MESSAGE);
-					  System.exit(0);
-					e.printStackTrace();
-				}
+				
       
     }
 
@@ -147,6 +189,13 @@ public class Account_lunch  extends JWindow {
         timer1.start();
        
     }
+    public void warnning( ) {
+    	JOptionPane.showMessageDialog(this,"Can not connect to DataBase.","Error", JOptionPane.ERROR_MESSAGE); 
+    	timer1.stop();
+     
+    	 
+		
+    }
 
     public static void main(final String[] args) {
 
@@ -155,4 +204,8 @@ public class Account_lunch  extends JWindow {
       
 	}
 
+    
+     
+
+     
 }

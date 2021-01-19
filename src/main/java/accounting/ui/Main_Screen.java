@@ -29,7 +29,7 @@ public class Main_Screen extends JFrame implements WindowListener  {
 		StudentDao studentDao = new StudentDao();
 
         student student = new student("Ramesh", "Fadatare", "ramesh@gmail.com");
-        studentDao.saveStudent(student);
+       // studentDao.saveStudent(student);
 
         System.out.println(student.getId());
 		

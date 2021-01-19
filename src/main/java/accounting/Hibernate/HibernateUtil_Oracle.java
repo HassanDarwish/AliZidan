@@ -1,17 +1,9 @@
 package accounting.Hibernate;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -22,7 +14,7 @@ public class HibernateUtil_Oracle {
 
 
 private static SessionFactory sessionfactory;
-public static SessionFactory getsSessionFactory() throws ClassNotFoundException {
+public static SessionFactory getsSessionFactory() throws Exception {
 		
 		if(sessionfactory==null) {
 			
@@ -71,7 +63,7 @@ public static SessionFactory getsSessionFactory() throws ClassNotFoundException 
 
 	public static File[]  list_Files() throws ClassNotFoundException {
 		String packageName = "accounting.model.entity";
-		List<Class> commands = new ArrayList<Class>();
+		 
 		URL root = Thread.currentThread().getContextClassLoader().getResource(packageName.replace(".", "/"));
 
 		// Filter .class files.
