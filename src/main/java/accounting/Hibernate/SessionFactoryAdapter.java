@@ -12,7 +12,7 @@ public   class SessionFactoryAdapter implements SessionFactoryinterface{
 		
 		switch (database) {
         case Mysql:
-        	sessionfacrory= HibernateUtil_Mysql.getsSessionFactory();
+         	sessionfacrory= HibernateUtil_Mysql.getsSessionFactory();
         	break;
         case Oracle:
         	sessionfacrory= HibernateUtil_Oracle.getsSessionFactory();

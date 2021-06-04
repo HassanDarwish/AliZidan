@@ -37,7 +37,7 @@ public static SessionFactory getsSessionFactory(int y) throws  Exception {
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost:3306/alizidan?useSSL=false");
                 settings.put(Environment.USER, "root");
-                settings.put(Environment.PASS, "159487Ali");
+                settings.put(Environment.PASS, "");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
@@ -80,14 +80,14 @@ public static SessionFactory getsSessionFactory(int y) throws  Exception {
 		
                 Configuration configuration = new Configuration();
                 File[] files = null;
-		 		files = listfile();
+		 		files = list_Files();
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost:3306/alizidan?useSSL=false");
                 settings.put(Environment.USER, "root");
-                settings.put(Environment.PASS, "159487Ali");
+                settings.put(Environment.PASS, "");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
@@ -127,8 +127,8 @@ public static SessionFactory getsSessionFactory(int y) throws  Exception {
 		
 		System.out.println(HibernateUtil_Mysql.class.getProtectionDomain().getCodeSource().getLocation());
 		String path=HibernateUtil_Mysql.class.getProtectionDomain().getCodeSource().getLocation().toString();
-		path=path.substring(6);
-		path=path.replace("/", "\\");
+	     path=path.substring(6);
+		//path=path.replace("/", "\\");
 		
 		System.out.println(path);
 		List<String> classNames = new ArrayList<String>();
@@ -180,6 +180,7 @@ public static SessionFactory getsSessionFactory(int y) throws  Exception {
 		// Filter .class files.
 		File[] files = new File(root.getFile()).listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
+		    	System.out.println(name);
 		        return name.endsWith(".class");
 		    }
 		});
